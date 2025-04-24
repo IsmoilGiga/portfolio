@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from .forms import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
+from .forms import ProjectForm
+from .models import Project
 
 # Create your views here.
 def redirect_to_login(request):
@@ -11,7 +13,9 @@ def redirect_to_login(request):
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    projects = Project.objects.all().order_by('-id') 
+    return render(request, 'home.html', {'projects': projects})
+
 
 def register(request):
     if request.method == 'POST':
@@ -56,3 +60,18 @@ def contact(request):
         contact = models.Home(name=name, email=email, subject=subject, message=message)
         contact.save()
     return render(request, 'home.html')
+
+
+def add_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            print("Project added successfully") 
+            return redirect('home') 
+        else:
+            print("Form errors:", form.errors) 
+    else:
+        form = ProjectForm()
+
+    return render(request, 'add_project.html', {'form': form})

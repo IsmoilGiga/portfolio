@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Developer Burhan</title>
+  <title>Developer Agzamov</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -72,6 +72,7 @@
           <li><a href="#skills" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Skills</span></a></li>
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Projects</span></a></li>
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+          <li><a href="{% url 'add_project' %}" class="nav-link"><i class="bx bx-plus-circle"></i> <span>Add project</span></a></li>
           <li class="nav-link scrollto">
             {% if user.is_authenticated %}
                 <span>Salom, {{ user.username }}</span>
@@ -370,7 +371,7 @@
             <div class="resume-item">
               <h4>Odoo Developer</h4>
               <h5>2022 - Present</h5>
-              <p><em>Vijayawada, India </em></p>
+              <p><em>Toshkent, Uzbekistan </em></p>
               <ul>
                 <li>Lead in the design, development, and implementation of the custom, layout, and production
                   communication materials</li>
@@ -384,7 +385,7 @@
             <div class="resume-item">
               <h4>Process Assosicate</h4>
               <h5>2020</h5>
-              <p><em>Vijayawada, India</em></p>
+              <p><em>Toshkent Uzbekistan</em></p>
               <ul>
                 <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and
                   advertisements).</li>
@@ -464,122 +465,22 @@
                   in iste officiis commodi quidem hic quas.</p>
               </div>
 
-              <div class="row" data-aos="fade-up">
-                <div class="col-lg-12 d-flex justify-content-center">
-                  <ul id="portfolio-flters">
-                    <li data-filter="*" class="filter-active">All</li>
-                    <li data-filter=".filter-app">Odoo</li>
-                    <li data-filter=".filter-card">Django</li>
-                    <li data-filter=".filter-web">Python</li>
-                    <li data-filter=".filter-web">JavaScript</li>
-                    <li data-filter=".filter-web">Bootstrap</li>
-                  </ul>
-                </div>
-              </div>
-
               <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-1.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-1.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
+                {% for project in projects %}
+                  <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                    <div class="portfolio-wrap">
+                      <img src="{{ project.image.url }}" class="img-fluid" alt="{{ project.title }}">
+                      <div class="portfolio-links">
+                        <a href="{{ project.image.url }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ project.title }}">
+                          <i class="bx bx-plus"></i>
+                        </a>
+                        <a href="{{ project.link }}" title="Korish"><i class="bx bx-link"></i></a>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-2.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-2.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-3.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-3.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-4.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-4.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-5.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-5.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-6.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-6.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-7.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-7.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-8.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-8.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                  <div class="portfolio-wrap">
-                    <img src="{% static 'img/portfolio/portfolio-9.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-links">
-                      <a href="{% static 'img/portfolio/portfolio-9.jpg' %}" data-gallery="portfolioGallery"
-                        class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                      <a href="/project" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
+                {% endfor %}
+            </div>            
+            
             </div>
           </section><!-- End Portfolio Section -->
           {% comment %}
