@@ -7,6 +7,7 @@ from home import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
+    path('delete_project/<int:project_id>/', views.delete_project, name='delete_project'),
     path('project', views.project, name='project'),
     path('#contact', views.contact, name='contact'),
     path('register/', views.register, name='register'),

@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
@@ -5,6 +6,7 @@ from .forms import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import ProjectForm
 from .models import Project
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def redirect_to_login(request):
@@ -75,3 +77,11 @@ def add_project(request):
         form = ProjectForm()
 
     return render(request, 'add_project.html', {'form': form})
+
+
+def delete_project(request, project_id):
+    if request.method == 'POST':
+        project = get_object_or_404(Project, id=project_id)
+        project.delete()
+        return JsonResponse({'success': True, 'message': 'Proyekt muvaffaqiyatli o‘chirildi'})
+    return JsonResponse({'success': False, 'message': 'Proyektni o‘chirishda xato yuz berdi'})
