@@ -85,3 +85,12 @@ def delete_project(request, project_id):
         project.delete()
         return JsonResponse({'success': True, 'message': 'Proyekt muvaffaqiyatli o‘chirildi'})
     return JsonResponse({'success': False, 'message': 'Proyektni o‘chirishda xato yuz berdi'})
+
+@login_required
+def delete_avatar(request):
+    if request.method == 'POST':
+        user_profile = request.user.profile
+        user_profile.avatar = None
+        user_profile.save()
+        return JsonResponse({'success': True}) 
+    return JsonResponse({'success': False}) 

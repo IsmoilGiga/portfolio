@@ -46,7 +46,31 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="{% static 'img/profile-img.jpg' %}" alt="" class="img-fluid rounded-circle">
+        <img
+          src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'img/profile-img.jpg' %}{% endif %}"
+          alt="Foydalanuvchi avatori" class="img-fluid rounded-circle" id="avatar-img">
+
+        <button class="btn btn-danger" id="deleteAvatarBtn">Avatarni o‘chirish</button>
+
+        <div class="modal fade" id="deleteAvatarModal" tabindex="-1" aria-labelledby="deleteAvatarModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteAvatarModalLabel">Avatarning o‘chirilishi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+              </div>
+              <div class="modal-body">
+                Ushbu avatarning o‘chirilishini tasdiqlaysizmi?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteAvatarBtn">O‘chirish</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h1 class="text-light"><a href="index.html">Ismoil Agzamov</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -56,9 +80,6 @@
           <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
           <a href="#" class="github"><i class="bx bxl-github"></i></a>
           <a href="#" class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
-
-
-
         </div>
 
 
@@ -818,6 +839,30 @@
       }
     });
 
+    $('#deleteAvatarBtn').click(function () {
+      $('#deleteAvatarModal').modal('show');
+    });
+
+    $('#confirmDeleteAvatarBtn').click(function () {
+      $.ajax({
+        url: '/delete_avatar/',
+        method: 'POST',
+        data: {
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function (response) {
+          if (response.success) {
+            $('#avatar-img').attr('src', '{% static "img/profile-img.jpg" %}');
+            $('#deleteAvatarModal').modal('hide');
+          } else {
+            alert('Avatarning o‘chirishida xatolik yuz berdi');
+          }
+        },
+        error: function () {
+          alert('Serverda xatolik yuz berdi');
+        }
+      });
+    });
   </script>
 
   <!-- Template Main JS File -->
